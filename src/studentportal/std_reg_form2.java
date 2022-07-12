@@ -4,6 +4,12 @@
  */
 package studentportal;
 
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+
 /**
  *
  * @author User
@@ -13,8 +19,13 @@ public class std_reg_form2 extends javax.swing.JFrame {
     /**
      * Creates new form std_reg_form2
      */
+    Connection con = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
     public std_reg_form2() {
         initComponents();
+        this.setVisible(true);
+        this.setLocationRelativeTo(null); 
     }
 
     /**
@@ -28,58 +39,60 @@ public class std_reg_form2 extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jButton4 = new javax.swing.JButton();
-        jLabel18 = new javax.swing.JLabel();
-        jComboBox6 = new javax.swing.JComboBox<>();
-        jLabel19 = new javax.swing.JLabel();
-        jComboBox7 = new javax.swing.JComboBox<>();
-        jTextField15 = new javax.swing.JTextField();
+        reg_number = new javax.swing.JTextField();
         jSeparator15 = new javax.swing.JSeparator();
-        jTextField17 = new javax.swing.JTextField();
+        name = new javax.swing.JTextField();
         jSeparator17 = new javax.swing.JSeparator();
-        jTextField18 = new javax.swing.JTextField();
+        birthday_date = new javax.swing.JTextField();
         jSeparator18 = new javax.swing.JSeparator();
-        jTextField19 = new javax.swing.JTextField();
-        jSeparator19 = new javax.swing.JSeparator();
-        jTextField20 = new javax.swing.JTextField();
-        jSeparator20 = new javax.swing.JSeparator();
-        jTextField21 = new javax.swing.JTextField();
-        jSeparator21 = new javax.swing.JSeparator();
-        jTextField22 = new javax.swing.JTextField();
-        jSeparator22 = new javax.swing.JSeparator();
-        jTextField23 = new javax.swing.JTextField();
-        jSeparator23 = new javax.swing.JSeparator();
-        jTextField24 = new javax.swing.JTextField();
-        jSeparator24 = new javax.swing.JSeparator();
+        nid_number = new javax.swing.JTextField();
+        jSeparator25 = new javax.swing.JSeparator();
+        reg_date = new javax.swing.JTextField();
+        jSeparator16 = new javax.swing.JSeparator();
+        age = new javax.swing.JTextField();
+        jSeparator26 = new javax.swing.JSeparator();
+        jSeparator27 = new javax.swing.JSeparator();
+        address = new javax.swing.JTextField();
+        jSeparator28 = new javax.swing.JSeparator();
+        vaccine_center_id = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jSeparator29 = new javax.swing.JSeparator();
+        first_dose_vaccine_date = new javax.swing.JTextField();
+        second_dose_vaccine_date = new javax.swing.JTextField();
+        jSeparator30 = new javax.swing.JSeparator();
+        first_dose_nurse_name = new javax.swing.JTextField();
+        jSeparator31 = new javax.swing.JSeparator();
+        second_dose_nurse_name = new javax.swing.JTextField();
+        jSeparator32 = new javax.swing.JSeparator();
+        first_dose_vaccine_name = new javax.swing.JComboBox<>();
+        vaccine = new javax.swing.JLabel();
+        vaccine_2 = new javax.swing.JLabel();
+        second_dose_vaccine_name = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jSeparator14 = new javax.swing.JSeparator();
+        std_id = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(54, 33, 89));
@@ -91,11 +104,6 @@ public class std_reg_form2 extends javax.swing.JFrame {
         jLabel1.setText("Vaccine Status");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 170, -1));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel4.setText("Step 1");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Step 2");
@@ -103,7 +111,12 @@ public class std_reg_form2 extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setText("submit");
+        jButton1.setText("Submit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 460, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(54, 33, 89));
@@ -115,11 +128,6 @@ public class std_reg_form2 extends javax.swing.JFrame {
         jLabel3.setText("Vaccine Status");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 170, -1));
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Vaccine Status");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, 20));
-
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
         jLabel7.setText("Step 1");
@@ -130,20 +138,6 @@ public class std_reg_form2 extends javax.swing.JFrame {
         jLabel8.setText("Step 2");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, -1));
 
-        jComboBox2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "YES", "NO" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
-
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton2.setText("submit");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 460, -1, -1));
-
         jPanel3.setBackground(new java.awt.Color(54, 33, 89));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -152,11 +146,6 @@ public class std_reg_form2 extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Vaccine Status");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 170, -1));
-
-        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Vaccine Status");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, 20));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(204, 204, 204));
@@ -168,48 +157,6 @@ public class std_reg_form2 extends javax.swing.JFrame {
         jLabel12.setText("Step 2");
         jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, -1));
 
-        jComboBox3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "YES", "NO" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
-
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton3.setText("submit");
-        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 460, -1, -1));
-
-        jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Father Vaccine Status");
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, -1, 20));
-
-        jComboBox4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "YES", "NO" }));
-        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox4ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
-
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Mother Vaccine Status");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 150, -1, 20));
-
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "YES", "NO" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, -1, -1));
-
         jPanel4.setBackground(new java.awt.Color(54, 33, 89));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -219,10 +166,10 @@ public class std_reg_form2 extends javax.swing.JFrame {
         jLabel14.setText("Vaccine Status");
         jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 170, -1));
 
-        jLabel15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Vaccine Status");
-        jPanel4.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, 20));
+        jLabel15.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 255, 255));
+        jLabel15.setText("Second Dose");
+        jPanel4.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 150, -1, 20));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(204, 204, 204));
@@ -234,164 +181,225 @@ public class std_reg_form2 extends javax.swing.JFrame {
         jLabel17.setText("Step 2");
         jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, -1));
 
-        jComboBox5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "YES", "NO" }));
-        jComboBox5.addActionListener(new java.awt.event.ActionListener() {
+        reg_number.setBackground(new java.awt.Color(54, 33, 89));
+        reg_number.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        reg_number.setForeground(new java.awt.Color(255, 255, 255));
+        reg_number.setText("Reg Number");
+        reg_number.setBorder(null);
+        reg_number.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox5ActionPerformed(evt);
+                reg_numberActionPerformed(evt);
             }
         });
-        jPanel4.add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
+        jPanel4.add(reg_number, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 140, -1));
+        jPanel4.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 140, 20));
+
+        name.setBackground(new java.awt.Color(54, 33, 89));
+        name.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        name.setForeground(new java.awt.Color(255, 255, 255));
+        name.setText("Name");
+        name.setBorder(null);
+        name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameActionPerformed(evt);
+            }
+        });
+        jPanel4.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 140, -1));
+        jPanel4.add(jSeparator17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 140, 20));
+
+        birthday_date.setBackground(new java.awt.Color(54, 33, 89));
+        birthday_date.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        birthday_date.setForeground(new java.awt.Color(255, 255, 255));
+        birthday_date.setText("Birthday Date");
+        birthday_date.setBorder(null);
+        birthday_date.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                birthday_dateActionPerformed(evt);
+            }
+        });
+        jPanel4.add(birthday_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 140, -1));
+        jPanel4.add(jSeparator18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 140, 20));
+
+        nid_number.setBackground(new java.awt.Color(54, 33, 89));
+        nid_number.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        nid_number.setForeground(new java.awt.Color(255, 255, 255));
+        nid_number.setText("NID Number");
+        nid_number.setBorder(null);
+        nid_number.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nid_numberActionPerformed(evt);
+            }
+        });
+        jPanel4.add(nid_number, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 140, -1));
+        jPanel4.add(jSeparator25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 140, 20));
+
+        reg_date.setBackground(new java.awt.Color(54, 33, 89));
+        reg_date.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        reg_date.setForeground(new java.awt.Color(255, 255, 255));
+        reg_date.setText("Reg Date");
+        reg_date.setBorder(null);
+        reg_date.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reg_dateActionPerformed(evt);
+            }
+        });
+        jPanel4.add(reg_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 140, -1));
+        jPanel4.add(jSeparator16, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, 140, 20));
+
+        age.setBackground(new java.awt.Color(54, 33, 89));
+        age.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        age.setForeground(new java.awt.Color(255, 255, 255));
+        age.setText("Age");
+        age.setBorder(null);
+        age.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ageActionPerformed(evt);
+            }
+        });
+        jPanel4.add(age, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 140, -1));
+        jPanel4.add(jSeparator26, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 140, 20));
+        jPanel4.add(jSeparator27, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 400, 140, 20));
+
+        address.setBackground(new java.awt.Color(54, 33, 89));
+        address.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        address.setForeground(new java.awt.Color(255, 255, 255));
+        address.setText("Address");
+        address.setBorder(null);
+        address.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addressActionPerformed(evt);
+            }
+        });
+        jPanel4.add(address, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 380, 140, -1));
+        jPanel4.add(jSeparator28, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 140, 20));
+
+        vaccine_center_id.setBackground(new java.awt.Color(54, 33, 89));
+        vaccine_center_id.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        vaccine_center_id.setForeground(new java.awt.Color(255, 255, 255));
+        vaccine_center_id.setText("Vaccine Center ID");
+        vaccine_center_id.setBorder(null);
+        vaccine_center_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vaccine_center_idActionPerformed(evt);
+            }
+        });
+        jPanel4.add(vaccine_center_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 140, -1));
+
+        jLabel22.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 69, 0));
+        jLabel22.setText("First Dose");
+        jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, -1, 20));
+        jPanel4.add(jSeparator29, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, 140, 20));
+
+        first_dose_vaccine_date.setBackground(new java.awt.Color(54, 33, 89));
+        first_dose_vaccine_date.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        first_dose_vaccine_date.setForeground(new java.awt.Color(255, 255, 255));
+        first_dose_vaccine_date.setText("Vaccination Date");
+        first_dose_vaccine_date.setBorder(null);
+        first_dose_vaccine_date.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                first_dose_vaccine_dateActionPerformed(evt);
+            }
+        });
+        jPanel4.add(first_dose_vaccine_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 140, -1));
+
+        second_dose_vaccine_date.setBackground(new java.awt.Color(54, 33, 89));
+        second_dose_vaccine_date.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        second_dose_vaccine_date.setForeground(new java.awt.Color(255, 255, 255));
+        second_dose_vaccine_date.setText("Vaccination Date");
+        second_dose_vaccine_date.setBorder(null);
+        second_dose_vaccine_date.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                second_dose_vaccine_dateActionPerformed(evt);
+            }
+        });
+        jPanel4.add(second_dose_vaccine_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, 140, -1));
+        jPanel4.add(jSeparator30, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 240, 140, 20));
+
+        first_dose_nurse_name.setBackground(new java.awt.Color(54, 33, 89));
+        first_dose_nurse_name.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        first_dose_nurse_name.setForeground(new java.awt.Color(255, 255, 255));
+        first_dose_nurse_name.setText("Nurse Name ");
+        first_dose_nurse_name.setBorder(null);
+        first_dose_nurse_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                first_dose_nurse_nameActionPerformed(evt);
+            }
+        });
+        jPanel4.add(first_dose_nurse_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 270, 140, -1));
+        jPanel4.add(jSeparator31, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 140, 20));
+
+        second_dose_nurse_name.setBackground(new java.awt.Color(54, 33, 89));
+        second_dose_nurse_name.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        second_dose_nurse_name.setForeground(new java.awt.Color(255, 255, 255));
+        second_dose_nurse_name.setText("Nurse Name");
+        second_dose_nurse_name.setBorder(null);
+        second_dose_nurse_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                second_dose_nurse_nameActionPerformed(evt);
+            }
+        });
+        jPanel4.add(second_dose_nurse_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 270, 140, -1));
+        jPanel4.add(jSeparator32, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 290, 140, 20));
+
+        first_dose_vaccine_name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        first_dose_vaccine_name.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pfizer", "Moderna", "CureVac", "Sinovac", "Sinopharm" }));
+        first_dose_vaccine_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                first_dose_vaccine_nameActionPerformed(evt);
+            }
+        });
+        jPanel4.add(first_dose_vaccine_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 380, -1, -1));
+
+        vaccine.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        vaccine.setForeground(new java.awt.Color(255, 255, 255));
+        vaccine.setText("Vaccine Name");
+        jPanel4.add(vaccine, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, -1, 20));
+
+        vaccine_2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        vaccine_2.setForeground(new java.awt.Color(255, 255, 255));
+        vaccine_2.setText("Vaccine Name");
+        jPanel4.add(vaccine_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 340, -1, 20));
+
+        second_dose_vaccine_name.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        second_dose_vaccine_name.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pfizer", "Moderna", "CureVac", "Sinovac", "Sinopharm" }));
+        second_dose_vaccine_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                second_dose_vaccine_nameActionPerformed(evt);
+            }
+        });
+        jPanel4.add(second_dose_vaccine_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 380, -1, -1));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/studentportal/icons8-cancel-30.png"))); // NOI18N
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, -1, -1));
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton4.setText("submit");
-        jPanel4.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 460, -1, -1));
-
-        jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("Father Vaccine Status");
-        jPanel4.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, -1, 20));
-
-        jComboBox6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "YES", "NO" }));
-        jComboBox6.addActionListener(new java.awt.event.ActionListener() {
+        jButton4.setText("Didn't registered");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox6ActionPerformed(evt);
+                jButton4ActionPerformed(evt);
             }
         });
-        jPanel4.add(jComboBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
+        jPanel4.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 460, -1, -1));
+        jPanel4.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 140, 20));
 
-        jLabel19.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("Mother Vaccine Status");
-        jPanel4.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 150, -1, 20));
-
-        jComboBox7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "YES", "NO" }));
-        jComboBox7.addActionListener(new java.awt.event.ActionListener() {
+        std_id.setBackground(new java.awt.Color(54, 33, 89));
+        std_id.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        std_id.setForeground(new java.awt.Color(255, 255, 255));
+        std_id.setText("Student ID");
+        std_id.setBorder(null);
+        std_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox7ActionPerformed(evt);
+                std_idActionPerformed(evt);
             }
         });
-        jPanel4.add(jComboBox7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, -1, -1));
-
-        jTextField15.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField15.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField15.setText("Vaccine ID");
-        jTextField15.setBorder(null);
-        jTextField15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField15ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 140, -1));
-        jPanel4.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 140, 20));
-
-        jTextField17.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField17.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField17.setText("Location");
-        jTextField17.setBorder(null);
-        jTextField17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField17ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 140, -1));
-        jPanel4.add(jSeparator17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 140, 20));
-
-        jTextField18.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField18.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField18.setText("Vaccine Date");
-        jTextField18.setBorder(null);
-        jTextField18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField18ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 140, -1));
-        jPanel4.add(jSeparator18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 140, 20));
-
-        jTextField19.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField19.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField19.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField19.setText("Vaccine ID");
-        jTextField19.setBorder(null);
-        jTextField19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField19ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextField19, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 140, -1));
-        jPanel4.add(jSeparator19, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 140, 20));
-
-        jTextField20.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField20.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField20.setText("Location");
-        jTextField20.setBorder(null);
-        jTextField20.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField20ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextField20, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 140, -1));
-        jPanel4.add(jSeparator20, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, 140, 20));
-
-        jTextField21.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField21.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField21.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField21.setText("Vaccine Date");
-        jTextField21.setBorder(null);
-        jTextField21.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField21ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextField21, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 140, -1));
-        jPanel4.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, 140, 20));
-
-        jTextField22.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField22.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField22.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField22.setText("Vaccine ID");
-        jTextField22.setBorder(null);
-        jTextField22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField22ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextField22, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, 140, -1));
-        jPanel4.add(jSeparator22, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 290, 140, 20));
-
-        jTextField23.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField23.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField23.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField23.setText("Location");
-        jTextField23.setBorder(null);
-        jTextField23.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField23ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextField23, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 330, 140, -1));
-        jPanel4.add(jSeparator23, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 350, 140, 20));
-
-        jTextField24.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField24.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField24.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField24.setText("Vaccine Date");
-        jTextField24.setBorder(null);
-        jTextField24.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField24ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextField24, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, 140, -1));
-        jPanel4.add(jSeparator24, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 410, 140, 20));
+        jPanel4.add(std_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 140, -1));
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 520));
 
@@ -399,74 +407,215 @@ public class std_reg_form2 extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 520));
 
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel20.setText("Step 1");
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton2.setText("Submit");
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 460, -1, -1));
+
+        jButton3.setBackground(new java.awt.Color(255, 255, 255));
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton3.setText("Submit");
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 460, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void birthday_dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_birthday_dateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_birthday_dateActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_nameActionPerformed
 
-    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+    private void reg_numberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_numberActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox4ActionPerformed
+    }//GEN-LAST:event_reg_numberActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    private void nid_numberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nid_numberActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_nid_numberActionPerformed
 
-    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
+    private void reg_dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_dateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox5ActionPerformed
+    }//GEN-LAST:event_reg_dateActionPerformed
 
-    private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
+    private void ageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ageActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox6ActionPerformed
+    }//GEN-LAST:event_ageActionPerformed
 
-    private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
+    private void addressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addressActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox7ActionPerformed
+    }//GEN-LAST:event_addressActionPerformed
 
-    private void jTextField15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField15ActionPerformed
+    private void vaccine_center_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaccine_center_idActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField15ActionPerformed
+    }//GEN-LAST:event_vaccine_center_idActionPerformed
 
-    private void jTextField17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField17ActionPerformed
+    private void first_dose_vaccine_dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_first_dose_vaccine_dateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField17ActionPerformed
+    }//GEN-LAST:event_first_dose_vaccine_dateActionPerformed
 
-    private void jTextField18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField18ActionPerformed
+    private void second_dose_vaccine_dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_second_dose_vaccine_dateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField18ActionPerformed
+    }//GEN-LAST:event_second_dose_vaccine_dateActionPerformed
 
-    private void jTextField19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField19ActionPerformed
+    private void second_dose_nurse_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_second_dose_nurse_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField19ActionPerformed
+    }//GEN-LAST:event_second_dose_nurse_nameActionPerformed
 
-    private void jTextField20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField20ActionPerformed
+    private void first_dose_nurse_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_first_dose_nurse_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField20ActionPerformed
+    }//GEN-LAST:event_first_dose_nurse_nameActionPerformed
 
-    private void jTextField21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField21ActionPerformed
+    private void first_dose_vaccine_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_first_dose_vaccine_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField21ActionPerformed
+    }//GEN-LAST:event_first_dose_vaccine_nameActionPerformed
 
-    private void jTextField22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField22ActionPerformed
+    private void second_dose_vaccine_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_second_dose_vaccine_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField22ActionPerformed
+    }//GEN-LAST:event_second_dose_vaccine_nameActionPerformed
 
-    private void jTextField23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField23ActionPerformed
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField23ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jLabel4MouseClicked
 
-    private void jTextField24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField24ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField24ActionPerformed
+         try{
+
+             
+             
+            con = DriverManager.getConnection("jdbc:mysql://localhost/uni_portal","root","");
+            String sql = "Insert into vaccine values ( ?,?,?,?,?,?,?,? )";
+            pst = con.prepareStatement(sql);
+         
+            pst.setString(1,reg_number.getText());
+            pst.setString(2,reg_date.getText());
+            pst.setString(3,name.getText());
+            pst.setString(4,vaccine_center_id.getText());
+            pst.setString(5,birthday_date.getText());
+            pst.setString(6,age.getText());
+            pst.setString(7,nid_number.getText());
+            pst.setString(8,address.getText());
+            
+            pst.executeUpdate();
+           
+            con.close();  
+              } catch (SQLException ex) {
+            Logger.getLogger(std_reg_form.class.getName()).log(Level.SEVERE, null, ex);
+              }
+         
+          try{
+
+             
+             
+            con = DriverManager.getConnection("jdbc:mysql://localhost/uni_portal","root","");
+            String sql = "Insert first_dose values ( ?,?,?,? )";
+            pst = con.prepareStatement(sql);
+         
+            pst.setString(1,reg_number.getText());
+            pst.setString(2,first_dose_vaccine_date.getText());
+            pst.setString(3,first_dose_nurse_name.getText());
+            pst.setString(4, (String) first_dose_vaccine_name.getSelectedItem());
+            
+            
+            pst.executeUpdate();
+            
+            con.close();  
+              } catch (SQLException ex) {
+            Logger.getLogger(std_reg_form.class.getName()).log(Level.SEVERE, null, ex);
+              }
+          
+          
+           try{
+
+             
+             
+            con = DriverManager.getConnection("jdbc:mysql://localhost/uni_portal","root","");
+            String sql = "Insert into second_dose values ( ?,?,?,? )";
+            pst = con.prepareStatement(sql);
+         
+            pst.setString(1,reg_number.getText());
+            pst.setString(2,second_dose_vaccine_date.getText());
+            pst.setString(3,second_dose_nurse_name.getText());
+            pst.setString(4, (String) second_dose_vaccine_name.getSelectedItem());
+            
+            
+            pst.executeUpdate();
+            
+            con.close();  
+              } catch (SQLException ex) {
+            Logger.getLogger(std_reg_form.class.getName()).log(Level.SEVERE, null, ex);
+              }
+           
+            try{
+
+             
+             
+            con = DriverManager.getConnection("jdbc:mysql://localhost/uni_portal","root","");
+            String sql = "Insert into stu_vaccine values ( ?,?,? )";
+            pst = con.prepareStatement(sql);
+         
+            pst.setString(1,std_id.getText());
+            pst.setString(2,"");
+            pst.setString(3,reg_number.getText());
+           
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Inserted Sucessfully");
+            con.close();  
+              } catch (SQLException ex) {
+            Logger.getLogger(std_reg_form.class.getName()).log(Level.SEVERE, null, ex);
+              }
+        
+        
+        
+         
+         this.dispose();
+         new Firstframe();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void std_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_std_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_std_idActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        
+        try{
+
+             
+             
+            con = DriverManager.getConnection("jdbc:mysql://localhost/uni_portal","root","");
+            String sql = "Insert into stu_vaccine values ( ?,?,? )";
+            pst = con.prepareStatement(sql);
+         
+            pst.setString(1,std_id.getText());
+            pst.setString(2,"");
+            pst.setString(3,reg_number.getText());
+           
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Inserted Sucessfully");
+            con.close();  
+              } catch (SQLException ex) {
+            Logger.getLogger(std_reg_form.class.getName()).log(Level.SEVERE, null, ex);
+              }
+        
+        
+        
+         
+         this.dispose();
+         new Firstframe();
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -504,33 +653,28 @@ public class std_reg_form2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField address;
+    private javax.swing.JTextField age;
+    private javax.swing.JTextField birthday_date;
+    private javax.swing.JTextField first_dose_nurse_name;
+    private javax.swing.JTextField first_dose_vaccine_date;
+    private javax.swing.JComboBox<String> first_dose_vaccine_name;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JComboBox<String> jComboBox7;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -538,23 +682,29 @@ public class std_reg_form2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator15;
+    private javax.swing.JSeparator jSeparator16;
     private javax.swing.JSeparator jSeparator17;
     private javax.swing.JSeparator jSeparator18;
-    private javax.swing.JSeparator jSeparator19;
-    private javax.swing.JSeparator jSeparator20;
-    private javax.swing.JSeparator jSeparator21;
-    private javax.swing.JSeparator jSeparator22;
-    private javax.swing.JSeparator jSeparator23;
-    private javax.swing.JSeparator jSeparator24;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField19;
-    private javax.swing.JTextField jTextField20;
-    private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField23;
-    private javax.swing.JTextField jTextField24;
+    private javax.swing.JSeparator jSeparator25;
+    private javax.swing.JSeparator jSeparator26;
+    private javax.swing.JSeparator jSeparator27;
+    private javax.swing.JSeparator jSeparator28;
+    private javax.swing.JSeparator jSeparator29;
+    private javax.swing.JSeparator jSeparator30;
+    private javax.swing.JSeparator jSeparator31;
+    private javax.swing.JSeparator jSeparator32;
+    private javax.swing.JTextField name;
+    private javax.swing.JTextField nid_number;
+    private javax.swing.JTextField reg_date;
+    private javax.swing.JTextField reg_number;
+    private javax.swing.JTextField second_dose_nurse_name;
+    private javax.swing.JTextField second_dose_vaccine_date;
+    private javax.swing.JComboBox<String> second_dose_vaccine_name;
+    private javax.swing.JTextField std_id;
+    private javax.swing.JLabel vaccine;
+    private javax.swing.JLabel vaccine_2;
+    private javax.swing.JTextField vaccine_center_id;
     // End of variables declaration//GEN-END:variables
 }

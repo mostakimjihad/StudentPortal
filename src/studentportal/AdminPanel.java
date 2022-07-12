@@ -4,6 +4,15 @@
  */
 package studentportal;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
@@ -13,8 +22,14 @@ public class AdminPanel extends javax.swing.JFrame {
     /**
      * Creates new form AdminPanel
      */
+    Connection con = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    int num = 0;
     public AdminPanel() {
         initComponents();
+        this.setVisible(true);
+        this.setLocationRelativeTo(null); 
     }
 
     /**
@@ -28,9 +43,29 @@ public class AdminPanel extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        num_std = new javax.swing.JLabel();
+        jjjd = new javax.swing.JLabel();
+        first_num = new javax.swing.JLabel();
+        vaccine = new javax.swing.JLabel();
+        second_num = new javax.swing.JLabel();
+        percent = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -38,16 +73,283 @@ public class AdminPanel extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(54, 33, 89));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Tempus Sans ITC", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Hey admin good to see you");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 300, -1));
+
+        jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Number Of Student");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, 20));
+
+        num_std.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        num_std.setForeground(new java.awt.Color(255, 255, 255));
+        num_std.setText("0");
+        jPanel2.add(num_std, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 30, 20));
+
+        jjjd.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jjjd.setForeground(new java.awt.Color(255, 255, 255));
+        jjjd.setText("First Dose");
+        jPanel2.add(jjjd, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, -1, 20));
+
+        first_num.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        first_num.setForeground(new java.awt.Color(255, 255, 255));
+        first_num.setText("0");
+        jPanel2.add(first_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 30, 20));
+
+        vaccine.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        vaccine.setText("vaccine type");
+        jPanel2.add(vaccine, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 130, 30));
+
+        second_num.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        second_num.setForeground(new java.awt.Color(255, 255, 255));
+        second_num.setText("0");
+        jPanel2.add(second_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 40, 20));
+
+        percent.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
+        percent.setForeground(new java.awt.Color(255, 255, 255));
+        percent.setText("45");
+        jPanel2.add(percent, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 220, -1, 50));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/studentportal/refresh.png"))); // NOI18N
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 350, 70, 60));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/studentportal/max vaccine.png"))); // NOI18N
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 330, -1));
+
+        jLabel22.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("Second Dose");
+        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, 20));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/studentportal/percent.png"))); // NOI18N
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 210, -1, -1));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/studentportal/icons8-cancel-30.png"))); // NOI18N
+        jLabel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/studentportal/virsu1.png"))); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 210, -1, -1));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/studentportal/home2.png"))); // NOI18N
+        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, -1, -1));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 440));
 
         jPanel3.setBackground(new java.awt.Color(54, 33, 89));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 850, 30));
 
+        jButton2.setBackground(new java.awt.Color(54, 33, 89));
+        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Database");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 450, -1, -1));
+
+        jButton3.setBackground(new java.awt.Color(54, 33, 89));
+        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("single info");
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, -1, -1));
+
+        jButton4.setBackground(new java.awt.Color(54, 33, 89));
+        jButton4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("vaccinated");
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 450, -1, -1));
+
+        jButton5.setBackground(new java.awt.Color(54, 33, 89));
+        jButton5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("count");
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 450, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new vaccine_status_table();
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new single_ingo();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new vaccinated();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        // TODO add your handling code here:
+         try{
+
+             
+             
+            con = DriverManager.getConnection("jdbc:mysql://localhost/uni_portal","root","");
+            String sql = "select count(std_id) as jihad from student";
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            rs.next();
+            num=rs.getInt("jihad");
+            num_std.setText(Integer.toString(num));
+            con.close();  
+              } catch (SQLException ex) {
+            Logger.getLogger(std_reg_form.class.getName()).log(Level.SEVERE, null, ex);
+              }
+         
+         try{
+
+             
+             
+            con = DriverManager.getConnection("jdbc:mysql://localhost/uni_portal","root","");
+            String sql = "select count(reg_number) as jihad from first_dose";
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            rs.next();
+            int count=rs.getInt("jihad");
+            first_num.setText(Integer.toString(count));
+            con.close();  
+              } catch (SQLException ex) {
+            Logger.getLogger(std_reg_form.class.getName()).log(Level.SEVERE, null, ex);
+              }
+         
+         
+          try{
+
+             
+             
+            con = DriverManager.getConnection("jdbc:mysql://localhost/uni_portal","root","");
+            String sql = "select count(reg_number) as jihad from second_dose";
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            rs.next();
+            int count=rs.getInt("jihad");
+            second_num.setText(Integer.toString(count));
+            con.close();  
+              } catch (SQLException ex) {
+            Logger.getLogger(std_reg_form.class.getName()).log(Level.SEVERE, null, ex);
+              }
+          
+          
+           
+            try{
+
+             
+             
+            con = DriverManager.getConnection("jdbc:mysql://localhost/uni_portal","root","");
+            String sql = "select count(vaccine_status) as jihad from stu_vaccine where vaccine_status='completed'";
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            rs.next();
+            float count=rs.getInt("jihad");
+            float result = (count/num) * 100;
+            System.out.println(count);
+            System.out.println(num);
+            percent.setText(String.valueOf(result));
+            con.close();  
+              } catch (SQLException ex) {
+            Logger.getLogger(std_reg_form.class.getName()).log(Level.SEVERE, null, ex);
+              }
+            
+            
+            try{
+
+            con = DriverManager.getConnection("jdbc:mysql://localhost/uni_portal","root","");
+            String sql = "select vaccine_name, COUNT(reg_number) from first_dose GROUP by vaccine_name order by COUNT(reg_number) desc limit 1;";
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();      
+           
+            rs.next();
+            String vac = rs.getString("vaccine_name");
+            vaccine.setText(vac);
+          
+         con.close();
+        }
+        catch(SQLException ex){
+            System.out.print(ex);
+        }
+        
+    }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new Firstframe();
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new count();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -85,8 +387,27 @@ public class AdminPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel first_num;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel jjjd;
+    private javax.swing.JLabel num_std;
+    private javax.swing.JLabel percent;
+    private javax.swing.JLabel second_num;
+    private javax.swing.JLabel vaccine;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,13 +8,23 @@ package studentportal;
  *
  * @author User
  */
+ import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+ 
 public class std_reg_form extends javax.swing.JFrame {
 
-    /**
-     * Creates new form std_reg_form
-     */
+    Connection con = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    
     public std_reg_form() {
+        
         initComponents();
+        this.setVisible(true);
+        this.setLocationRelativeTo(null); 
+        
     }
 
     /**
@@ -33,26 +43,38 @@ public class std_reg_form extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField4 = new javax.swing.JTextField();
+        age = new javax.swing.JTextField();
+        first_name = new javax.swing.JTextField();
+        last_name = new javax.swing.JTextField();
+        gender = new javax.swing.JComboBox<>();
+        email = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
-        jTextField5 = new javax.swing.JTextField();
+        phone = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
-        jTextField6 = new javax.swing.JTextField();
+        father_name = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
-        jTextField7 = new javax.swing.JTextField();
+        mother_name = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
-        jTextField8 = new javax.swing.JTextField();
+        father_age = new javax.swing.JTextField();
         jSeparator8 = new javax.swing.JSeparator();
-        jTextField9 = new javax.swing.JTextField();
+        mother_age = new javax.swing.JTextField();
         jSeparator9 = new javax.swing.JSeparator();
+        father_job = new javax.swing.JTextField();
+        jSeparator10 = new javax.swing.JSeparator();
+        mother_job = new javax.swing.JTextField();
+        jSeparator11 = new javax.swing.JSeparator();
+        father_salary = new javax.swing.JTextField();
+        jSeparator12 = new javax.swing.JSeparator();
+        mother_salary = new javax.swing.JTextField();
+        jSeparator13 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        std_id = new javax.swing.JTextField();
+        jSeparator14 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(54, 33, 89));
@@ -77,183 +99,321 @@ public class std_reg_form extends javax.swing.JFrame {
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 140, 20));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 140, 20));
 
-        jTextField1.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setText("Age");
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        age.setBackground(new java.awt.Color(54, 33, 89));
+        age.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        age.setForeground(new java.awt.Color(255, 255, 255));
+        age.setText("Age");
+        age.setBorder(null);
+        age.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                ageActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 140, 20));
+        jPanel1.add(age, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 140, 20));
 
-        jTextField2.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setText("First Name");
-        jTextField2.setBorder(null);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        first_name.setBackground(new java.awt.Color(54, 33, 89));
+        first_name.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        first_name.setForeground(new java.awt.Color(255, 255, 255));
+        first_name.setText("First Name");
+        first_name.setBorder(null);
+        first_name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                first_nameActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 140, 20));
+        jPanel1.add(first_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 140, 20));
 
-        jTextField3.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField3.setText("Last Name");
-        jTextField3.setBorder(null);
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        last_name.setBackground(new java.awt.Color(54, 33, 89));
+        last_name.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        last_name.setForeground(new java.awt.Color(255, 255, 255));
+        last_name.setText("Last Name");
+        last_name.setBorder(null);
+        last_name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                last_nameActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 153, 140, -1));
+        jPanel1.add(last_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 153, 140, -1));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel5.setText("Step 2");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, -1));
-
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        gender.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE" }));
+        gender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                genderActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, -1));
+        jPanel1.add(gender, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, -1));
 
-        jTextField4.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField4.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField4.setText("Email");
-        jTextField4.setBorder(null);
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        email.setBackground(new java.awt.Color(54, 33, 89));
+        email.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        email.setForeground(new java.awt.Color(255, 255, 255));
+        email.setText("Email");
+        email.setBorder(null);
+        email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                emailActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 140, -1));
+        jPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 140, -1));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 140, 20));
 
-        jTextField5.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField5.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField5.setText("Phone");
-        jTextField5.setBorder(null);
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        phone.setBackground(new java.awt.Color(54, 33, 89));
+        phone.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        phone.setForeground(new java.awt.Color(255, 255, 255));
+        phone.setText("Phone");
+        phone.setBorder(null);
+        phone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                phoneActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 140, 20));
+        jPanel1.add(phone, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 140, 20));
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 140, 20));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton1.setText("Next");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 460, -1, -1));
 
-        jTextField6.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField6.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField6.setText("Father Name");
-        jTextField6.setBorder(null);
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        father_name.setBackground(new java.awt.Color(54, 33, 89));
+        father_name.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        father_name.setForeground(new java.awt.Color(255, 255, 255));
+        father_name.setText("Father Name");
+        father_name.setBorder(null);
+        father_name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                father_nameActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, 140, 20));
+        jPanel1.add(father_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, 140, 20));
         jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 170, 140, 20));
 
-        jTextField7.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField7.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField7.setText("Mother Name");
-        jTextField7.setBorder(null);
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        mother_name.setBackground(new java.awt.Color(54, 33, 89));
+        mother_name.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        mother_name.setForeground(new java.awt.Color(255, 255, 255));
+        mother_name.setText("Mother Name");
+        mother_name.setBorder(null);
+        mother_name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                mother_nameActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, 140, 20));
+        jPanel1.add(mother_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, 140, 20));
         jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 170, 140, 20));
 
-        jTextField8.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField8.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField8.setText("Father Age");
-        jTextField8.setBorder(null);
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        father_age.setBackground(new java.awt.Color(54, 33, 89));
+        father_age.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        father_age.setForeground(new java.awt.Color(255, 255, 255));
+        father_age.setText("Father Age");
+        father_age.setBorder(null);
+        father_age.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                father_ageActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 220, 140, 20));
-        jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, 140, 20));
+        jPanel1.add(father_age, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 230, 140, 20));
+        jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 250, 140, 20));
 
-        jTextField9.setBackground(new java.awt.Color(54, 33, 89));
-        jTextField9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jTextField9.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField9.setText("Mother Age");
-        jTextField9.setBorder(null);
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+        mother_age.setBackground(new java.awt.Color(54, 33, 89));
+        mother_age.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        mother_age.setForeground(new java.awt.Color(255, 255, 255));
+        mother_age.setText("Mother Age");
+        mother_age.setBorder(null);
+        mother_age.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
+                mother_ageActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 220, 140, 20));
-        jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 140, 20));
+        jPanel1.add(mother_age, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, 140, 20));
+        jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 250, 140, 20));
+
+        father_job.setBackground(new java.awt.Color(54, 33, 89));
+        father_job.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        father_job.setForeground(new java.awt.Color(255, 255, 255));
+        father_job.setText("Fathers Job");
+        father_job.setBorder(null);
+        father_job.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                father_jobActionPerformed(evt);
+            }
+        });
+        jPanel1.add(father_job, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 140, 20));
+        jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, 140, 20));
+
+        mother_job.setBackground(new java.awt.Color(54, 33, 89));
+        mother_job.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        mother_job.setForeground(new java.awt.Color(255, 255, 255));
+        mother_job.setText("Mother Job");
+        mother_job.setBorder(null);
+        mother_job.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mother_jobActionPerformed(evt);
+            }
+        });
+        jPanel1.add(mother_job, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, 140, 20));
+        jPanel1.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 330, 140, 20));
+
+        father_salary.setBackground(new java.awt.Color(54, 33, 89));
+        father_salary.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        father_salary.setForeground(new java.awt.Color(255, 255, 255));
+        father_salary.setText("Fathers Salary");
+        father_salary.setBorder(null);
+        father_salary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                father_salaryActionPerformed(evt);
+            }
+        });
+        jPanel1.add(father_salary, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 390, 140, 20));
+        jPanel1.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 410, 140, 20));
+
+        mother_salary.setBackground(new java.awt.Color(54, 33, 89));
+        mother_salary.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        mother_salary.setForeground(new java.awt.Color(255, 255, 255));
+        mother_salary.setText("Mother Salary");
+        mother_salary.setBorder(null);
+        mother_salary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mother_salaryActionPerformed(evt);
+            }
+        });
+        jPanel1.add(mother_salary, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 390, 140, 20));
+        jPanel1.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 410, 140, 20));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel6.setText("Step 2");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/studentportal/icons8-cancel-30.png"))); // NOI18N
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, -1, -1));
+
+        std_id.setBackground(new java.awt.Color(54, 33, 89));
+        std_id.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        std_id.setForeground(new java.awt.Color(255, 255, 255));
+        std_id.setText("Student ID");
+        std_id.setBorder(null);
+        std_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                std_idActionPerformed(evt);
+            }
+        });
+        jPanel1.add(std_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 200, 140, -1));
+        jPanel1.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, 140, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void ageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ageActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_ageActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void first_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_first_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_first_nameActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void last_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_last_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_last_nameActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void genderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genderActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_genderActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_emailActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void phoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_phoneActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void father_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_father_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_father_nameActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void mother_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mother_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_mother_nameActionPerformed
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void father_ageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_father_ageActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_father_ageActionPerformed
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void mother_ageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mother_ageActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
+    }//GEN-LAST:event_mother_ageActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+         try{
+             
+            con = DriverManager.getConnection("jdbc:mysql://localhost/uni_portal","root","");
+            String sql = "Insert into student values ( ?,?,?,?,?,?,?,?,?,?,? )";
+            pst = con.prepareStatement(sql);
+            
+            pst.setString(1,std_id.getText());
+            pst.setString(2,first_name.getText());
+            pst.setString(3,last_name.getText());
+            pst.setString(4,mother_name.getText());
+            pst.setString(5,father_name.getText());
+            pst.setString(6,father_age.getText());
+            pst.setString(7,mother_age.getText());
+            pst.setString(8,age.getText());
+            pst.setString(9, (String) gender.getSelectedItem());
+            pst.setString(10,email.getText());
+            pst.setString(11,phone.getText());
+            
+            
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Inserted Sucessfully");
+            con.close();  
+              } catch (SQLException ex) {
+            Logger.getLogger(std_reg_form.class.getName()).log(Level.SEVERE, null, ex);
+              }
+         
+         this.dispose();
+         new std_reg_form2();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void father_jobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_father_jobActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_father_jobActionPerformed
+
+    private void mother_jobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mother_jobActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mother_jobActionPerformed
+
+    private void father_salaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_father_salaryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_father_salaryActionPerformed
+
+    private void mother_salaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mother_salaryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mother_salaryActionPerformed
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void std_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_std_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_std_idActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,14 +451,27 @@ public class std_reg_form extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField age;
+    private javax.swing.JTextField email;
+    private javax.swing.JTextField father_age;
+    private javax.swing.JTextField father_job;
+    private javax.swing.JTextField father_name;
+    private javax.swing.JTextField father_salary;
+    private javax.swing.JTextField first_name;
+    private javax.swing.JComboBox<String> gender;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
+    private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -307,14 +480,12 @@ public class std_reg_form extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField last_name;
+    private javax.swing.JTextField mother_age;
+    private javax.swing.JTextField mother_job;
+    private javax.swing.JTextField mother_name;
+    private javax.swing.JTextField mother_salary;
+    private javax.swing.JTextField phone;
+    private javax.swing.JTextField std_id;
     // End of variables declaration//GEN-END:variables
 }

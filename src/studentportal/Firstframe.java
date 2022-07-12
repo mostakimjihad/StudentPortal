@@ -67,6 +67,12 @@ public class Firstframe extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 250, -1));
 
         jPanel3.setBackground(new java.awt.Color(85, 65, 118));
+        jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel5.setBackground(new java.awt.Color(153, 153, 255));
@@ -85,6 +91,11 @@ public class Firstframe extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(85, 65, 118));
         jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel4MouseClicked(evt);
+            }
+        });
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/studentportal/icons8-student-registration-30.png"))); // NOI18N
@@ -165,12 +176,22 @@ public class Firstframe extends javax.swing.JFrame {
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/studentportal/output-onlinepngtools (1).png"))); // NOI18N
         jLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel15MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(54, 33, 89));
         jLabel16.setText("Create a new account ?");
         jLabel16.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel16MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 440, -1, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 550, 520));
@@ -188,6 +209,28 @@ public class Firstframe extends javax.swing.JFrame {
         this.dispose();
         new Teacherlogin();
     }//GEN-LAST:event_jPanel6MouseClicked
+
+    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel4MouseClicked
+
+    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new std_reg_form();
+    }//GEN-LAST:event_jLabel16MouseClicked
+
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new Teacherlogin();
+    }//GEN-LAST:event_jPanel3MouseClicked
+
+    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        new student();
+    }//GEN-LAST:event_jLabel15MouseClicked
 
     /**
      * @param args the command line arguments
